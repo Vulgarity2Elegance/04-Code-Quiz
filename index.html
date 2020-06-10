@@ -4,6 +4,7 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Code Quiz</title>
+        <!-- Added link to the Bootstrap -->
         <link
             rel="stylesheet"
             href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
@@ -15,32 +16,35 @@
 
     <body>
         <header class="p-3" style="background-color: rgb(231, 201, 31);">
-            <a href="highscore.html" class="ml-3">View high scores</a>
+            <a href="highscore.html">View high scores</a>
             <span id="timer" class="float-right mr-3" style="color: black;"
                 >Time: 0</span
             >
         </header>
 
         <!-- Welcome Page -->
-        <section class="container my-5">
-            <div class="row">
+        <section class="container" id="welcome-page">
+            <div class="row d-flex justify-content-center my-5 py-5">
                 <div class="col-12 text-center">
                     <h1>
-                        Code Quiz
+                        Coding Quiz Challenge
                     </h1>
-                    <p class="lead">
-                        Please be prepared to complete this quiz in 60 seconds.
-                        Don't worry! It is not hard at all.
-                    </p>
-                    <hr class="my-3 bg-dark" />
                     <p>
-                        <em>Tip:</em> You will lose some time if you answer it
-                        incorrectly.
+                        Try to answer the following code-related questions
+                        within the time limit.
+                    </p>
+
+                    <hr class="my-4 bg-dark" />
+                    <p>
+                        <em
+                            >keep in mind that incorrect answers will penalize
+                            your scoretime by ten seconds!</em
+                        >
                     </p>
                     <button
                         id="start-button"
                         type="button"
-                        class="btn btn-info btn-lg"
+                        class="btn btn-info btn-lg my-5"
                     >
                         Start
                     </button>
@@ -48,21 +52,51 @@
             </div>
         </section>
 
-        <script
-            src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-            integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-            crossorigin="anonymous"
-        ></script>
-        <script
-            src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
-            integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
-            crossorigin="anonymous"
-        ></script>
-        <script
-            src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
-            integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
-            crossorigin="anonymous"
-        ></script>
+        <!-- Quiz -->
+        <!-- 
+        Using bootstrap "d-none" class to hide sections when rendering the HTML page initially.
+        -->
+        <section class="container d-none" id="quiz-section">
+            <div class="row d-flex justify-content-center my-5 py-5">
+                <div class="col-12" id="Q&A">
+                    <h2 id="question" class="my-5">Q:</h2>
+                    <ul id="choices" class="list-unstyled">
+                        <li class="answerChoice">A:</li>
+                        <li class="answerChoice">B:</li>
+                        <li class="answerChoice">C:</li>
+                        <li class="answerChoice">D:</li>
+                    </ul>
+                    <p class="feedback"></p>
+                </div>
+            </div>
+        </section>
+
+        <!--Submit form -->
+        <section class="container d-none" id="submit-form">
+            <div class="row d-flex justify-content-center my-5 py-5">
+                <div class="col-12 text-center">
+                    <h2>Congratulations!</h2>
+                    <p id="user-score"></p>
+                    <form class="form-group">
+                        <label for="new-score">Enter your name: </label>
+                        <input type="text" id="userName" />
+                        <br />
+                        <button
+                            id="submit"
+                            class="btn btn-info btn-sm mx-3 my-3"
+                        >
+                            Submit
+                        </button>
+                        <button id="home" class="btn btn-info btn-sm">
+                            Home
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- Added link to the jQuery Library -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
         <script src="main.js"></script>
     </body>
 </html>
