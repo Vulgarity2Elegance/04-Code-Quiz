@@ -1,22 +1,28 @@
 // Part 1: Click start button to set a timer and load the quiz
-
 let timeLeft = 75; // complete this quiz within 75 seconds
 
-$("#start-button").click(function () {
+$("#start-button").click(() => {
     $("#welcome-page").addClass("d-none"); // add bootstrap 'd-none' class by using jQuery
     $("#quiz-section").removeClass("d-none"); // using jQuery removeClass()
     const timeInterval = setInterval(() => {
         $("#timer").text("Time: " + timeLeft);
         timeLeft--;
 
-        if (timeLeft === 0) {
-            $("#timer").text(" ");
+        if (timeLeft === 0 || questionCounter === quiz.length) {
+            $("#timer").text("Finished");
             clearInterval(timeInterval);
         }
     }, 1000);
+
+    renderQuiz();
 });
 
 // Part 2: create questions and rendering quizes
+const CORRECT_BONUS = 25;
+
+let score = 0;
+let questionCounter = -1;
+let answer;
 
 let quiz = [
     {
@@ -26,7 +32,7 @@ let quiz = [
     },
     {
         question: "The condition in an if ... else statement is enclosed with:",
-        choices: ["quotes", "curly brackets", "parentheses", "square brackets"],
+        choices: ["quotes", "parentheses", "curly brackets", "square brackets"],
         answer: "parentheses",
     },
     {
@@ -42,11 +48,41 @@ let quiz = [
     {
         question:
             "String values must be enclosed within ____ when being assigned to variables.",
-        choices: ["commas", "curley brackets", "quotes", "parentheses"],
+        choices: ["quotes", "curly brackets", "parentheses", "commas"],
         answer: "quotes",
     },
 ];
 
-// Part 3: displaying user score and submit it into scoreboard
+function renderQuiz() {
+    questionCounter++;
 
-const userscoreEl = document.getElementById("user-score");
+    answer = quiz[questionCounter].answer;
+    $("#questions").text(quiz[questionCounter].question); // generate questions from quiz array.
+    $("#choices").text(" ");
+
+    let multipleChoices = quiz[questionCounter].choices;
+
+    for (let i = 0; i < multipleChoices.length; i++) {
+        const $nextChoice = $("<p>");
+        $nextChoice
+            .text(multipleChoices[i])
+            .addClass(
+                "btn btn-light btn-outline-success d-flex justify-content-center"
+            );
+        $("#choices").append($nextChoice);
+    }
+}
+
+$("#choices").on("click", (event) => {
+    if (answer === event.target.textContent) {
+        $(".feedback").text("Correct!").addClass("alert alert-success");
+        score += CORRECT_BONUS;
+        $("#score").text("Score: " + score);
+    } else {
+        $(".feedback").text("Incorrect!").addClass("alert alert-danger");
+        timeLeft -= 10;
+    }
+    renderQuiz();
+});
+
+// Part 3: displaying user score and submit it into scoreboard
