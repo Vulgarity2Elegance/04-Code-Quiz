@@ -16,15 +16,15 @@
 
     <body>
         <header class="p-3" style="background-color: rgb(231, 201, 31);">
-            <a href="highscore.html">View high scores</a>
-            <span id="timer" class="float-right mr-3" style="color: black;"
+            <span id="score" style="color: black;">Score: 0</span>
+            <span id="timer" class="float-right" style="color: black;"
                 >Time: 0</span
             >
         </header>
 
         <!-- Welcome Page -->
         <section class="container" id="welcome-page">
-            <div class="row d-flex justify-content-center my-5 py-5">
+            <div class="row d-flex justify-content-center my-3 py-3">
                 <div class="col-12 text-center">
                     <h1>
                         Coding Quiz Challenge
@@ -57,23 +57,18 @@
         Using bootstrap "d-none" class to hide sections when rendering the HTML page initially.
         -->
         <section class="container d-none" id="quiz-section">
-            <div class="row d-flex justify-content-center my-5 py-5">
-                <div class="col-12" id="Q&A">
-                    <h2 id="question" class="my-5">Q:</h2>
-                    <ul id="choices" class="list-unstyled">
-                        <li class="answerChoice">A:</li>
-                        <li class="answerChoice">B:</li>
-                        <li class="answerChoice">C:</li>
-                        <li class="answerChoice">D:</li>
-                    </ul>
+            <div class="row justify-content-center my-3 py-3">
+                <div class="col-12 text-center">
                     <p class="feedback"></p>
+                    <h3 class="mb3" id="questions"></h3>
+                    <div class="choice-container" id="choices"></div>
                 </div>
             </div>
         </section>
 
         <!--Submit form -->
         <section class="container d-none" id="submit-form">
-            <div class="row d-flex justify-content-center my-5 py-5">
+            <div class="row d-flex justify-content-center my-3 py-3">
                 <div class="col-12 text-center">
                     <h2>Congratulations!</h2>
                     <p id="user-score"></p>
