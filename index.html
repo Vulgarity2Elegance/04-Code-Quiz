@@ -11,12 +11,17 @@
             integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
             crossorigin="anonymous"
         />
-        <link rel="stylesheet" href="style.css" />
+        <style>
+            body {
+                background-color: rgb(51, 103, 172);
+                color: white;
+            }
+        </style>
     </head>
 
     <body>
         <header class="p-3" style="background-color: rgb(231, 201, 31);">
-            <span id="score" style="color: black;">Score: 0</span>
+            <a href="scoreboard.html">View highscores</a>
             <span id="timer" class="float-right" style="color: black;"
                 >Time: 0</span
             >
@@ -34,7 +39,7 @@
                         within the time limit.
                     </p>
 
-                    <hr class="my-4 bg-dark" />
+                    <hr class="my-3 bg-dark" />
                     <p>
                         <em
                             >keep in mind that incorrect answers will penalize
@@ -44,7 +49,7 @@
                     <button
                         id="start-button"
                         type="button"
-                        class="btn btn-info btn-lg my-5"
+                        class="btn btn-info btn-lg my-3"
                     >
                         Start
                     </button>
@@ -59,9 +64,9 @@
         <section class="container d-none" id="quiz-section">
             <div class="row justify-content-center my-3 py-3">
                 <div class="col-12 text-center">
-                    <p class="feedback"></p>
                     <h3 class="mb3" id="questions"></h3>
-                    <div class="choice-container" id="choices"></div>
+                    <p id="choices"></p>
+                    <p id="alert"></p>
                 </div>
             </div>
         </section>
@@ -70,20 +75,14 @@
         <section class="container d-none" id="submit-form">
             <div class="row d-flex justify-content-center my-3 py-3">
                 <div class="col-12 text-center">
-                    <h2>Congratulations!</h2>
+                    <h2>All done!</h2>
                     <p id="user-score"></p>
                     <form class="form-group">
                         <label for="new-score">Enter your name: </label>
                         <input type="text" id="userName" />
                         <br />
-                        <button
-                            id="submit"
-                            class="btn btn-info btn-sm mx-3 my-3"
-                        >
+                        <button id="submit" class="btn btn-info btn-lg my-3">
                             Submit
-                        </button>
-                        <button id="home" class="btn btn-info btn-sm">
-                            Home
                         </button>
                     </form>
                 </div>
