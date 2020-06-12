@@ -133,7 +133,7 @@ for (let i = 0; i < highscores.length; i++) {
 }
 
 $("#restart").on("click", () => {
-    window.history.back();
+    window.location.replace("index.html");
 });
 
 $("#clear").on("click", () => {
