@@ -1,30 +1,5 @@
-// Part 1: Click start button to set a timer and load the quiz
-let timeLeft = 75; // complete this quiz within 75 seconds
-
-$("#start-button").click(() => {
-    $("#welcome-page").addClass("d-none"); // add bootstrap 'd-none' class by using jQuery
-    $("#quiz-section").removeClass("d-none"); // using jQuery removeClass()
-    const timeInterval = setInterval(() => {
-        $("#timer").text("Time: " + timeLeft);
-        timeLeft--;
-
-        if (timeLeft === 0 || questionCounter === quiz.length) {
-            $("#timer").text("Finished");
-            clearInterval(timeInterval);
-        }
-    }, 1000);
-
-    renderQuiz();
-});
-
-// Part 2: create questions and rendering quizes
-const CORRECT_BONUS = 25;
-
-let score = 0;
-let questionCounter = -1;
-let answer;
-
-let quiz = [
+// Part 1: Create questions for the quiz.
+const quiz = [
     {
         question: "Commonly used data type DO NOT include:",
         choices: ["strings", "booleans", "alerts", "numbers"],
@@ -53,11 +28,33 @@ let quiz = [
     },
 ];
 
+// Part 2: Click start button to set a timer (score as well) and load the quiz.
+let timeLeft = quiz.length * 25;
+
+$("#start-button").click(() => {
+    $("#welcome-page").addClass("d-none");
+    $("#quiz-section").removeClass("d-none");
+    const timeInterval = setInterval(() => {
+        $("#timer").text("Time: " + timeLeft);
+        timeLeft--;
+
+        if (timeLeft === 0 || questionCounter === quiz.length) {
+            clearInterval(timeInterval);
+            displyScore();
+        }
+    }, 1000);
+    renderQuiz();
+});
+
+// Part 3: Rendering the quiz dynamically and adding event listener.
+let questionCounter = -1;
+let answer;
+
 function renderQuiz() {
     questionCounter++;
 
     answer = quiz[questionCounter].answer;
-    $("#questions").text(quiz[questionCounter].question); // generate questions from quiz array.
+    $("#questions").text(quiz[questionCounter].question);
     $("#choices").text(" ");
 
     let multipleChoices = quiz[questionCounter].choices;
@@ -66,23 +63,80 @@ function renderQuiz() {
         const $nextChoice = $("<p>");
         $nextChoice
             .text(multipleChoices[i])
-            .addClass(
-                "btn btn-light btn-outline-success d-flex justify-content-center"
-            );
+            .addClass("btn btn-dark d-flex justify-content-center");
         $("#choices").append($nextChoice);
     }
 }
 
 $("#choices").on("click", (event) => {
     if (answer === event.target.textContent) {
-        $(".feedback").text("Correct!").addClass("alert alert-success");
-        score += CORRECT_BONUS;
-        $("#score").text("Score: " + score);
+        $("#alert").text("Correct!").addClass("alert alert-success");
+        setTimeout(() => {
+            $("#alert").text(" ");
+            $("#alert").removeClass("alert alert-success");
+        }, 2000);
     } else {
-        $(".feedback").text("Incorrect!").addClass("alert alert-danger");
+        $("#alert").text("Incorrect!").addClass("alert alert-danger");
+        setTimeout(() => {
+            $("#alert").text(" ");
+            $("#alert").removeClass("alert alert-danger");
+        }, 2000);
         timeLeft -= 10;
     }
     renderQuiz();
 });
 
-// Part 3: displaying user score and submit it into scoreboard
+// Part 4: displaying user score and submit it onto scoreboard
+function displyScore() {
+    $("#quiz-section").addClass("d-none");
+    $("#submit-form").removeClass("d-none");
+    timeLeft += 1;
+    $("#user-score")
+        .text("Your final score is " + timeLeft + ".")
+        .addClass("alert alert-info");
+}
+
+let userInitial;
+
+function submitScore() {
+    userInitial = $("#userName").val();
+    let newScore = {
+        name: userInitial,
+        score: timeLeft,
+    };
+    let highscores = JSON.parse(localStorage.getItem("highscores") || "[]");
+    highscores.push(newScore);
+    localStorage.setItem("highscores", JSON.stringify(highscores));
+}
+
+$("#submit").on("click", (event) => {
+    event.preventDefault();
+    submitScore();
+    window.location.replace("scoreboard.html");
+});
+
+//Part 5: Rendering highscores on scoreboard html
+const highscores = JSON.parse(localStorage.getItem("highscores") || "[]");
+
+highscores.sort((a, b) => {
+    return b.score - a.score;
+});
+
+for (let i = 0; i < highscores.length; i++) {
+    let userScores = $("<li>");
+    userScores
+        .text(highscores[i].name + " - " + highscores[i].score)
+        .addClass(
+            "d-flex justify-content-center border rounded-pill my-2 list-group-item list-group-item-info"
+        );
+    $("#list").append(userScores);
+}
+
+$("#restart").on("click", () => {
+    window.history.back();
+});
+
+$("#clear").on("click", () => {
+    localStorage.clear();
+    location.reload(true);
+});
