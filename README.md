@@ -24,6 +24,33 @@ WHEN the game is over
 THEN I can save my initials and score
 ```
 
-The following animation demonstrates the application functionality:
+### Mindset
 
-![code quiz](./Assets/04-web-apis-homework-demo.gif)
+I opted to use bootstrap library for the sake of aesthetics and which saves me from writing media queries for the responsiveness.
+
+I also used jQuery so that my script.js looks neat and clean and saving itself from being overwhelmed with a plethora of variables at the beginning.
+
+That being said, I spent most of my time trying to figure out the logic behind and how I can progress and build it up step-by-step.
+
+The good thing is I can build this app around Acceptance Criteria, and there are a few thing I write them down to remind me constantly:
+
+-   Keyword: `click, answer, <button>`
+    This reminds me that I need to creat `document.getElementById("").addEventListener('click', ()=>{})` although I can use jQuery to simplify it further.
+
+-   keyword: `timer`
+    This reminds me to use `setInterval()` to create a timer.
+
+-   keyword: `incorrectly or correctly`
+    This reminds me to create `if...else` statement to set a condition.
+
+-   keyword: `save`
+    This reminds me to use `localStorage.setItem()` and I might use `JSON.parse()` to save 'my initials and score' to an object.
+
+In conclusion, creating this application is a good opportunity to go through some basic concepts, such as web APIs, Events, and localstorage.
+
+#### Demo
+
+The following animation demonstrates the application functionality:
+![code quiz](./Assets)
+
+Please also visit the deployed page [website (https://vulgarity2elegance.github.io/04-Code-Quiz/)][website] and try it yourself!
