@@ -37,7 +37,6 @@ $("#start-button").click(() => {
     const timeInterval = setInterval(() => {
         $("#timer").text("Time: " + timeLeft);
         timeLeft--;
-
         if (timeLeft === 0 || questionCounter === quiz.length) {
             clearInterval(timeInterval);
             displyScore();
@@ -48,39 +47,35 @@ $("#start-button").click(() => {
 
 // Part 3: Rendering the quiz dynamically and adding event listener.
 let questionCounter = -1;
-let answer;
 
 function renderQuiz() {
     questionCounter++;
-
-    answer = quiz[questionCounter].answer;
     $("#questions").text(quiz[questionCounter].question);
     $("#choices").text(" ");
-
     let multipleChoices = quiz[questionCounter].choices;
-
     for (let i = 0; i < multipleChoices.length; i++) {
-        const $nextChoice = $("<p>");
-        $nextChoice
+        const $choice = $("<p>");
+        $choice
             .text(multipleChoices[i])
             .addClass("btn btn-dark d-flex justify-content-center");
-        $("#choices").append($nextChoice);
+        $("#choices").append($choice);
     }
 }
 
 $("#choices").on("click", (event) => {
+    let answer = quiz[questionCounter].answer;
     if (answer === event.target.textContent) {
         $("#alert").text("Correct!").addClass("alert alert-success");
         setTimeout(() => {
             $("#alert").text(" ");
             $("#alert").removeClass("alert alert-success");
-        }, 2000);
+        }, 1000);
     } else {
         $("#alert").text("Incorrect!").addClass("alert alert-danger");
         setTimeout(() => {
             $("#alert").text(" ");
             $("#alert").removeClass("alert alert-danger");
-        }, 2000);
+        }, 1000);
         timeLeft -= 10;
     }
     renderQuiz();
@@ -96,15 +91,14 @@ function displyScore() {
         .addClass("alert alert-info");
 }
 
-let userInitial;
+const highscores = JSON.parse(localStorage.getItem("highscores") || "[]");
 
 function submitScore() {
-    userInitial = $("#userName").val();
+    let userInitial = $("#userName").val();
     let newScore = {
         name: userInitial,
         score: timeLeft,
     };
-    let highscores = JSON.parse(localStorage.getItem("highscores") || "[]");
     highscores.push(newScore);
     localStorage.setItem("highscores", JSON.stringify(highscores));
 }
@@ -116,8 +110,6 @@ $("#submit").on("click", (event) => {
 });
 
 //Part 5: Rendering highscores on scoreboard html
-const highscores = JSON.parse(localStorage.getItem("highscores") || "[]");
-
 highscores.sort((a, b) => {
     return b.score - a.score;
 });
