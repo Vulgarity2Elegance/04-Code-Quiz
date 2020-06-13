@@ -51,6 +51,6 @@ In conclusion, creating this application is a good opportunity to go through som
 #### Demo
 
 The following animation demonstrates the application functionality:
-![code quiz](./Assets)
+![code quiz](./Assets/04-code-quiz.gif)
 
-Please also visit the deployed page [website (https://vulgarity2elegance.github.io/04-Code-Quiz/)][website] and try it yourself!
+Please also visit the deployed page (https://vulgarity2elegance.github.io/04-Code-Quiz/) and try it yourself!
